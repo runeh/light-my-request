@@ -145,6 +145,30 @@ const parseQuery = url => {
   return qs.parse(parsedURL.search.slice(1))
 }
 
+test('Can parse paths with single leading slash', (t) => {
+  t.plan(1)
+  const parsedURL = parseURL('/test', undefined)
+  t.equal(parsedURL.href, 'http://localhost//test')
+})
+
+test('Can parse paths with two leading slashes', (t) => {
+  t.plan(1)
+  const parsedURL = parseURL('//test', undefined)
+  t.equal(parsedURL.href, 'http://localhost//test')
+})
+
+test('Can parse URLs with two leading slashes', (t) => {
+  t.plan(1)
+  const parsedURL = parseURL('https://example.com//test', undefined)
+  t.equal(parsedURL.href, 'https://example.com//test')
+})
+
+test('Can parse URLs with single leading slash', (t) => {
+  t.plan(1)
+  const parsedURL = parseURL('https://example.com/test', undefined)
+  t.equal(parsedURL.href, 'https://example.com/test')
+})
+
 test('passes query', (t) => {
   t.plan(2)
 
